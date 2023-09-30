@@ -39,13 +39,9 @@ public class Reserva {
     @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 
-    @ManyToMany
-    @JoinTable(
-            name = "reserva_quartos",
-            joinColumns = @JoinColumn(name = "id_reserva", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "id_quarto", nullable = false)
-    )
-    private List<Quarto> quartos = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_quarto", nullable = false)
+    private Quarto quarto;
 
     @OneToMany(mappedBy = "reserva", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pagamento> pagamentos = new ArrayList<>();
