@@ -18,13 +18,23 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cliente")
     private Long id;
+
+    @Column(nullable = false, length = 100)
     private String nome;
+
+    @Column(nullable = false, unique = true, length = 14)
     private String cpf;
+
+    @Column(length = 100)
     private String email;
+
+    @Column(nullable = false, length = 14)
     private String telefone;
+
+    @Column(nullable = false)
     private LocalDate nascimento;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_endereco")
+    @JoinColumn(name = "id_endereco", nullable = false)
     private Endereco endereco;
 }

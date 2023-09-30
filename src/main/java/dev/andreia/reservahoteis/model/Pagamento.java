@@ -18,12 +18,15 @@ public class Pagamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pagamento")
     private Long id;
+
+    @Column(nullable = false, columnDefinition = "decimal(8,2)")
     private BigDecimal valor;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 45)
     private MeiosPagamento meioDePagamento;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_reserva")
+    @JoinColumn(name = "id_reserva", nullable = false)
     private Reserva reserva;
 }

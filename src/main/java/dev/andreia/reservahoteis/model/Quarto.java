@@ -21,17 +21,20 @@ public class Quarto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_quarto")
     private Long id;
+
+    @Column(nullable = false, columnDefinition = "decimal(8,2)")
     private BigDecimal precoNoite;
 
     @Enumerated(EnumType.STRING)
-    private TiposQuarto tipoDeQuarto;
+    @Column(nullable = false, length = 45)
+    private TiposQuarto tipo;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_hotel")
+    @JoinColumn(name = "id_hotel", nullable = false)
     private Hotel hotel;
 
     @ElementCollection(targetClass = LocalDate.class)
     @CollectionTable(name = "Disponibilidades")
-    @Column(name = "data")
+    @Column(name = "data", nullable = false)
     private Set<LocalDate> disponibilidades = new HashSet<>();
 }

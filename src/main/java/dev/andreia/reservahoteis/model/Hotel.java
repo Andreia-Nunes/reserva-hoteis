@@ -21,18 +21,24 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_hotel")
     private Long id;
+
+    @Column(nullable = false, length = 100)
     private String nome;
+
+    @Column(nullable = false)
     private String descricao;
+
+    @Column(nullable = false)
     private Integer classificacao;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_endereco")
+    @JoinColumn(name = "id_endereco", nullable = false)
     private Endereco endereco;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = Comodidades.class)
     @CollectionTable(name = "Comodidades")
-    @Column(name = "comodidade")
+    @Column(name = "comodidade", nullable = false, length = 45)
     private Set<Comodidades> comodidades = new HashSet<>();
 
     @OneToMany(mappedBy = "hotel", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)

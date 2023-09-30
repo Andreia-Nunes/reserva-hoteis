@@ -21,22 +21,29 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_reserva")
     private Long id;
+
+    @Column(nullable = false)
     private LocalDate dataCheckIn;
+
+    @Column(nullable = false)
     private LocalDate dataCheckOut;
+
+    @Column(nullable = false, columnDefinition = "decimal(8,2)")
     private BigDecimal precoTotal;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 45)
     private StatusReserva statusReserva;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_cliente")
+    @JoinColumn(name = "id_cliente", nullable = false)
     private Cliente cliente;
 
     @ManyToMany
     @JoinTable(
             name = "reserva_quartos",
-            joinColumns = @JoinColumn(name = "id_reserva"),
-            inverseJoinColumns = @JoinColumn(name = "id_quarto")
+            joinColumns = @JoinColumn(name = "id_reserva", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "id_quarto", nullable = false)
     )
     private List<Quarto> quartos = new ArrayList<>();
 
