@@ -11,8 +11,13 @@
 <p>Trata-se de um trabalho desenvolvido continuamente durante a disciplina de Back-End II oferecida pela instituição de ensino Uniesp Centro Universitário (João Pessoa), 
 ministrada pelo professor André Farias aos alunos do curso de Sistemas para Internet do semestre 2023.2.</p>
 
+###Diagrama de Classes:
 ![reserva-hoteis-diagrama-de-classes.jpeg](reserva-hoteis-diagrama-de-classes.jpeg)
+
+### Modelo Entidade-Relacionamento:
 ![reserva-hoteis-MER.png](reserva-hoteis-MER.png)
+
+### Modelo Relacional:
 ![reserva-hoteis-modelo_relacional.png](reserva-hoteis-modelo_relacional.png)
 
 ##### Aluna: Andréia Nunes Pereira
