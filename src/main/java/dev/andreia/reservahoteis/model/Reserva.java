@@ -44,7 +44,7 @@ public class Reserva {
     @JoinColumn(name = "id_quarto", nullable = false)
     private Quarto quarto;
 
-    @OneToMany(mappedBy = "reserva", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "reserva", fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval = true)
     @JsonManagedReference
     private List<Pagamento> pagamentos = new ArrayList<>();
 }

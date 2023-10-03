@@ -50,9 +50,13 @@ public class ReservaService {
         LocalDate dataCheckOut = reservaCriacaoDto.dataCheckOut();
 
         //Verifica se a reserva possui pelo menos 1 dia.
-        int tempoDaReserva = this.calcularTempoDaReserva(dataCheckIn, dataCheckOut);
-        if(tempoDaReserva == 1){
+        if(dataCheckIn.isEqual(dataCheckOut)){
             throw new IllegalArgumentException("O tempo mínimo de reserva é 1 dia.");
+        }
+
+        //Verifica se a data de check-in é anterior à de check-out.
+        if(!dataCheckIn.isBefore(dataCheckOut)){
+            throw new IllegalArgumentException("A data de check-in deve ser anterior à de check-out.");
         }
 
         //Verifica se o quarto está disponível entre as datas solicitadas.
@@ -62,7 +66,7 @@ public class ReservaService {
         quarto.alterarDisponibilidade(dataCheckIn, dataCheckOut, true);
 
         //Calcula preço total
-        BigDecimal precoTotal = this.calcularPrecoTotal(tempoDaReserva, quarto.getPrecoPorNoite());
+        BigDecimal precoTotal = this.calcularPrecoTotal(this.calcularTempoDaReserva(dataCheckIn, dataCheckOut), quarto.getPrecoPorNoite());
 
         Reserva reservaModel = new Reserva();
         reservaModel.setCliente(cliente);
@@ -70,12 +74,7 @@ public class ReservaService {
         reservaModel.setDataCheckIn(dataCheckIn);
         reservaModel.setDataCheckOut(dataCheckOut);
         reservaModel.setPrecoTotal(precoTotal);
-        reservaModel.setPagamentos(reservaCriacaoDto.pagamentos());
         reservaModel.setStatusReserva(StatusReserva.CONFIRMADA);
-
-        //Cria referência inversa nos pagamentos
-        reservaModel.getPagamentos().stream()
-                .forEach(pagamento -> pagamento.setReserva(reservaModel));
 
         return reservaRepository.save(reservaModel);
     }

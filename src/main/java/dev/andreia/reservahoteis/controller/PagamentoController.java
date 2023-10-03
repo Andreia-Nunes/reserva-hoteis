@@ -2,6 +2,7 @@ package dev.andreia.reservahoteis.controller;
 
 import dev.andreia.reservahoteis.model.Pagamento;
 import dev.andreia.reservahoteis.model.dtos.PagamentoConsultaDto;
+import dev.andreia.reservahoteis.model.dtos.PagamentoCriacaoDto;
 import dev.andreia.reservahoteis.service.PagamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,12 @@ public class PagamentoController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<PagamentoConsultaDto>> findAll(){
         return ResponseEntity.status(200).body(service.findAll());
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<Pagamento> save(@RequestBody PagamentoCriacaoDto pagamentoCriacaoDto){
+        return ResponseEntity.status(201).body(service.save(pagamentoCriacaoDto));
     }
 
     @PutMapping("/{id}")

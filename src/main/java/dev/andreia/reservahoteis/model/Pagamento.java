@@ -27,7 +27,7 @@ public class Pagamento {
     @Column(nullable = false, length = 45)
     private MeiosPagamento meioDePagamento;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_reserva", nullable = false)
     @JsonBackReference
     private Reserva reserva;
