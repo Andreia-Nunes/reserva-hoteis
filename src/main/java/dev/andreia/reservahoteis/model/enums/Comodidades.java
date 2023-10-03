@@ -2,6 +2,7 @@ package dev.andreia.reservahoteis.model.enums;
 
 public enum Comodidades {
     WIFI,
+    TV_A_CABO,
     ESTACIONAMENTO,
     RESTAURANTE,
     ACADEMIA,

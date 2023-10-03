@@ -34,7 +34,7 @@ public class Cliente {
     @Column(nullable = false)
     private LocalDate nascimento;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST) //CascadeType.MERGE
     @JoinColumn(name = "id_endereco", nullable = false)
     private Endereco endereco;
 }

@@ -1,5 +1,6 @@
 package dev.andreia.reservahoteis.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import dev.andreia.reservahoteis.model.enums.MeiosPagamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,5 +29,6 @@ public class Pagamento {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_reserva", nullable = false)
+    @JsonBackReference
     private Reserva reserva;
 }

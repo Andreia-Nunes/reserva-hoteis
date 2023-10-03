@@ -1,5 +1,6 @@
 package dev.andreia.reservahoteis.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.andreia.reservahoteis.model.enums.StatusReserva;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -44,5 +45,6 @@ public class Reserva {
     private Quarto quarto;
 
     @OneToMany(mappedBy = "reserva", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Pagamento> pagamentos = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package dev.andreia.reservahoteis.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import dev.andreia.reservahoteis.model.enums.TiposQuarto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,17 +25,18 @@ public class Quarto {
     private Long id;
 
     @Column(nullable = false, columnDefinition = "decimal(8,2)")
-    private BigDecimal precoNoite;
+    private BigDecimal precoPorNoite;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 45)
-    private TiposQuarto tipo;
+    private TiposQuarto tipoDeQuarto;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_hotel", nullable = false)
+    @JsonBackReference
     private Hotel hotel;
 
-    @ElementCollection(targetClass = LocalDate.class)
+    @ElementCollection(targetClass = LocalDate.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "Disponibilidades")
     @Column(name = "data", nullable = false)
     private Set<LocalDate> disponibilidades = new HashSet<>();
