@@ -38,7 +38,7 @@ public class Quarto {
 
     @ElementCollection(targetClass = LocalDate.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "Disponibilidades")
-    @Column(name = "data", nullable = false)
+    @Column(name = "dataDisponivel", nullable = false)
     private Set<LocalDate> disponibilidades = new HashSet<>();
 
     public boolean estaDisponivel(List<LocalDate> datas){

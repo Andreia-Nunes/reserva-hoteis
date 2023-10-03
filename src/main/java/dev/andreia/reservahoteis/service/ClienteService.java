@@ -23,6 +23,10 @@ public class ClienteService {
         return repository.findById(id).orElseThrow(() -> new NoSuchElementException());
     }
 
+    public Cliente findByCpf(String cpf) {
+        return repository.findClienteByCpf(cpf).orElseThrow(() -> new NoSuchElementException());
+    }
+
     public List<Cliente> findAll() {
         return repository.findAll();
     }
@@ -57,4 +61,5 @@ public class ClienteService {
             throw new IllegalArgumentException("Já existe cliente com o CPF informado.");
         }
     }
+
 }

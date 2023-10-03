@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 @Entity
+@NamedQuery(name = "Cliente.findClienteByCpf"
+        ,query = "select c from Cliente c where cpf = ?1")
 public class Cliente {
 
     @Id

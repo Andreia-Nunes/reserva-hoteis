@@ -37,6 +37,12 @@ public class QuartoController {
         return ResponseEntity.status(200).body(service.findAll());
     }
 
+    @GetMapping("/disponiveis")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<QuartoConsultaDto>> findQuartosDisponiveis(@RequestParam LocalDate data){
+        return ResponseEntity.status(200).body(service.findQuartosDisponiveis(data));
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Quarto> save(@RequestBody QuartoCriacaoDto quartoCriacaoDto){

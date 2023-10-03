@@ -23,6 +23,9 @@ public class HotelService {
         return repository.findById(id).orElseThrow(() -> new NoSuchElementException());
     }
 
+    public List<Hotel> findByCidade(String cidade) {
+        return repository.findByEnderecoCidade(cidade);
+    }
 
     public List<Hotel> findAll() {
         return repository.findAll();
@@ -52,4 +55,5 @@ public class HotelService {
         repository.delete(hotelToDelete);
         repository.flush();
     }
+
 }

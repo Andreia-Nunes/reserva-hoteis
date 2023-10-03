@@ -21,10 +21,16 @@ public class HotelController {
         this.service = service;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Hotel> findById(@PathVariable Long id){
         return ResponseEntity.status(200).body(service.findById(id));
+    }
+
+    @GetMapping("/cidade/{cidade}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<Hotel>> findByCidade(@PathVariable String cidade){
+        return ResponseEntity.status(200).body(service.findByCidade(cidade));
     }
 
     @GetMapping("/all")

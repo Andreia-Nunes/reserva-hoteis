@@ -43,6 +43,14 @@ public class QuartoService {
                 .collect(Collectors.toList());
     }
 
+    public List<QuartoConsultaDto> findQuartosDisponiveis(LocalDate data) {
+        List<Quarto> quartosDisponiveisBD = quartoRepository.findQuartosDisponiveis(data);
+
+        return quartosDisponiveisBD.stream()
+                .map(quartoBD -> new QuartoConsultaDto(quartoBD))
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public Quarto save(QuartoCriacaoDto dto) {
         Hotel hotel = this.buscaHotel(dto.idHotel());
@@ -83,6 +91,5 @@ public class QuartoService {
         Quarto quartoBD = this.findById(id);
         return quartoBD.getDisponibilidades();
     }
-
 
 }

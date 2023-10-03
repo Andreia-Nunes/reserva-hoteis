@@ -21,10 +21,16 @@ public class ClienteController {
         this.service = service;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Cliente> findById(@PathVariable Long id){
         return ResponseEntity.status(200).body(service.findById(id));
+    }
+
+    @GetMapping("/cpf/{cpf}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Cliente> findByCpf(@PathVariable String cpf){
+        return ResponseEntity.status(200).body(service.findByCpf(cpf));
     }
 
     @GetMapping("/all")
