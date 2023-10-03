@@ -1,10 +1,11 @@
-package dev.andreia.reservahoteis.service.impl;
+package dev.andreia.reservahoteis.service;
 
 import dev.andreia.reservahoteis.model.Hotel;
 import dev.andreia.reservahoteis.model.Quarto;
+import dev.andreia.reservahoteis.model.dtos.QuartoConsultaDto;
+import dev.andreia.reservahoteis.model.dtos.QuartoCriacaoDto;
 import dev.andreia.reservahoteis.repository.HotelRepository;
 import dev.andreia.reservahoteis.repository.QuartoRepository;
-import dev.andreia.reservahoteis.service.ServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,51 +14,59 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
-public class QuartoServiceImpl implements ServiceInterface<Quarto> {
+public class QuartoService {
 
     private QuartoRepository quartoRepository;
     private HotelRepository hotelRepository;
 
     @Autowired
-    public QuartoServiceImpl(QuartoRepository repository, HotelRepository hotelRepository) {
+    public QuartoService(QuartoRepository repository, HotelRepository hotelRepository) {
         this.quartoRepository = repository;
         this.hotelRepository = hotelRepository;
     }
 
-    @Override
     public Quarto findById(Long id) {
         return quartoRepository.findById(id).orElseThrow(() -> new NoSuchElementException());
     }
 
-    @Override
-    public List<Quarto> findAll() {
-        return quartoRepository.findAll();
+    public QuartoConsultaDto findByIdDto(Long id) {
+        return new QuartoConsultaDto(this.findById(id));
+    }
+
+    public List<QuartoConsultaDto> findAll() {
+        List<Quarto> quartosBD = quartoRepository.findAll();
+        return quartosBD.stream()
+                .map(quartoBD -> new QuartoConsultaDto(quartoBD))
+                .collect(Collectors.toList());
     }
 
     @Transactional
-    @Override
-    public Quarto save(Quarto objectToSave) {
-        Hotel hotel = this.buscaHotel(objectToSave.getHotel().getId());
-        objectToSave.setHotel(hotel);
+    public Quarto save(QuartoCriacaoDto dto) {
+        Hotel hotel = this.buscaHotel(dto.idHotel());
 
-        return quartoRepository.save(objectToSave);
+        Quarto quartoModel = new Quarto();
+        quartoModel.setPrecoPorNoite(dto.precoPorNoite());
+        quartoModel.setTipoDeQuarto(dto.tipoDeQuarto());
+        quartoModel.setDisponibilidades(dto.disponibilidades());
+        quartoModel.setHotel(hotel);
+
+        return quartoRepository.save(quartoModel);
     }
 
-    @Override
-    public Quarto update(Long id, Quarto objectUpdated) {
+    public Quarto update(Long id, Quarto quarto) {
         Quarto quartoBD = this.findById(id);
 
-        quartoBD.setTipo(objectUpdated.getTipo());
-        quartoBD.setDisponibilidades(objectUpdated.getDisponibilidades());
-        quartoBD.setPrecoNoite(objectUpdated.getPrecoNoite());
+        quartoBD.setTipoDeQuarto(quarto.getTipoDeQuarto());
+        quartoBD.setDisponibilidades(quarto.getDisponibilidades());
+        quartoBD.setPrecoPorNoite(quarto.getPrecoPorNoite());
 
         return quartoRepository.save(quartoBD);
     }
 
     @Transactional
-    @Override
     public void delete(Long id) {
         Quarto quartoToDelete = this.findById(id);
 
@@ -70,8 +79,10 @@ public class QuartoServiceImpl implements ServiceInterface<Quarto> {
                 new IllegalArgumentException("O hotel informado não existe. Por favor, cadastre-o antes do quarto."));
     }
 
-    public Set<LocalDate> consultarDisponibilidades(Long id){
+    public Set<LocalDate> checkAvailability(Long id){
         Quarto quartoBD = this.findById(id);
         return quartoBD.getDisponibilidades();
     }
+
+
 }
