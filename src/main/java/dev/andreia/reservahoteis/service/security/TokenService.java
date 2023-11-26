@@ -1,4 +1,4 @@
-package dev.andreia.reservahoteis.security;
+package dev.andreia.reservahoteis.service.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

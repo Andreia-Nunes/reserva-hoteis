@@ -1,10 +1,12 @@
 package dev.andreia.reservahoteis.controller.security;
 
 import dev.andreia.reservahoteis.model.dtos.security.AuthenticationDto;
+import dev.andreia.reservahoteis.model.dtos.security.LoginResponseDto;
 import dev.andreia.reservahoteis.model.dtos.security.RegisterDto;
+import dev.andreia.reservahoteis.model.security.User;
+import dev.andreia.reservahoteis.service.security.TokenService;
 import dev.andreia.reservahoteis.service.security.AuthorizationService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,9 +23,12 @@ public class AuthenticationController {
 
     private final AuthorizationService authorizationService;
 
-    public AuthenticationController(AuthenticationManager authenticationManager, AuthorizationService authorizationService) {
+    private final TokenService tokenService;
+
+    public AuthenticationController(AuthenticationManager authenticationManager, AuthorizationService authorizationService, TokenService tokenService) {
         this.authenticationManager = authenticationManager;
         this.authorizationService = authorizationService;
+        this.tokenService = tokenService;
     }
 
     @PostMapping("/login")
@@ -31,7 +36,9 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((User) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDto(token));
     }
 
     @PostMapping("/register")
