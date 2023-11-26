@@ -1,5 +1,6 @@
 package dev.andreia.reservahoteis.model.security;
 
+import dev.andreia.reservahoteis.model.enums.security.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package dev.andreia.reservahoteis.model.security;
+package dev.andreia.reservahoteis.model.enums.security;
 
 public enum UserRole {
     ADMIN("admin"),
