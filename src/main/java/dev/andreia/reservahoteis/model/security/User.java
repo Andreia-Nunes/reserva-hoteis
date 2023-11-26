@@ -24,7 +24,7 @@ public class User implements UserDetails {
 
     private String password;
 
-    private String role;
+    private UserRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
