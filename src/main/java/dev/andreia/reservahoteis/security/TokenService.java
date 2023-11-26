@@ -45,7 +45,6 @@ public class TokenService {
         } catch(JWTVerificationException exception){
             return "";
         }
-
     }
 
     private Instant genExpirationDate(){
