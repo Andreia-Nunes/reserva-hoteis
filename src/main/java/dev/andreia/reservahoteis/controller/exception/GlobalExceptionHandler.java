@@ -2,8 +2,10 @@ package dev.andreia.reservahoteis.controller.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.NoSuchElementException;
 
@@ -18,6 +20,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> handleNotFoundException(NoSuchElementException notFoundException){
         return new ResponseEntity<>("Resource not found", HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<String> handleAccessDeniedException(AccessDeniedException accessDeniedException) {
+        String messageError = "Access Denied!";
+        return new ResponseEntity<>(messageError, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(Throwable.class)
