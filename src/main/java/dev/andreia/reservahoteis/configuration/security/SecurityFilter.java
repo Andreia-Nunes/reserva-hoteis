@@ -1,4 +1,4 @@
-package dev.andreia.reservahoteis.security;
+package dev.andreia.reservahoteis.configuration.security;
 
 import dev.andreia.reservahoteis.repository.security.UserRepository;
 import dev.andreia.reservahoteis.service.security.TokenService;
@@ -49,6 +49,4 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         return authHeader.replace("Bearer ", "");
     }
-
-
 }
