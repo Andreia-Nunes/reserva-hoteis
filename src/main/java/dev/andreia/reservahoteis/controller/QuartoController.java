@@ -8,6 +8,7 @@ import dev.andreia.reservahoteis.service.QuartoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -43,6 +44,7 @@ public class QuartoController {
         return ResponseEntity.status(200).body(service.findQuartosDisponiveis(data));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Quarto> save(@RequestBody QuartoCriacaoDto quartoCriacaoDto){
