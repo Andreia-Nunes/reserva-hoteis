@@ -146,6 +146,6 @@ git clone https://github.com/Andreia-Nunes/reserva-hoteis.git
 
 
 ### Autora:
-| [<img src="./src/main/resources/static/profile.jpg"><br><sub>Andréia Nunes Pereira</sub>](www.linkedin.com/in/andréia-nunes-21b389136) | 
-|----------------------------------------------------------------------------------------------------------------------------------------| 
+|[<img src="./src/main/resources/static/profile.jpg"><br><sub>Andréia Nunes Pereira</sub>](https://www.linkedin.com/in/andréia-nunes-21b389136)| 
+|----------------------------------------------------------------------------------------------------------------------------------------------| 
 
